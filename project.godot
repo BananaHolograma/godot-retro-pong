@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Pong"
+config/name="RetroPong"
+config/description="The arcade pong game with some retro effects and sounds."
 run/main_scene="res://ui/main_menu.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
