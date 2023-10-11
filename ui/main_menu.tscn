@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3rskkb6smpo"]
+
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="1_ws0gl"]
+[ext_resource type="Shader" path="res://shaders/vhs.gdshader" id="2_bdwdm"]
+[ext_resource type="AudioStream" uid="uid://c6jnxw1xa35u8" path="res://sounds/background_music.mp3" id="3_2wu6h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1u6n"]
+shader = ExtResource("2_bdwdm")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.5
+shader_parameter/roll_size = 20.0
+shader_parameter/roll_variation = 3.342
+shader_parameter/distort_intensity = 0.001
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.5
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ws0gl")
+
+[node name="RetroEffect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_t1u6n")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "PONG"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="OnePlayerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../MarginContainer/QuitButton")
+text = "1 Player"
+
+[node name="TwoPlayersButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2 Players"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 25
+
+[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../OnePlayerButton")
+text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2wu6h")
+autoplay = true
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/OnePlayerButton" to="." method="_on_one_player_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/TwoPlayersButton" to="." method="_on_two_players_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]
