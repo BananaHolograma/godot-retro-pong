@@ -5,13 +5,13 @@ enum SIDES {
 	RIGHT
 }
 
-var inputs: Dictionary = {
+@export var inputs: Dictionary = {
 	SIDES.LEFT: ["arrow_up", "arrow_down"],
 	SIDES.RIGHT: ["ui_up", "ui_down"]
 }
 
 
-var PLAYERS = {
+@export var PLAYERS = {
 	"one": {
 		"playable": true,
 		"inputs": inputs[SIDES.LEFT]
@@ -21,3 +21,5 @@ var PLAYERS = {
 		"inputs": inputs[SIDES.RIGHT]
 	}
 }
+
+@export var RETRO_EFFECT_SHADER := true

@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var viewport: Rect2 = get_viewport().get_visible_rect()
+@onready var retro_effect: ColorRect = $Score/Overlay/RetroEffect
 
 @onready var top_boundary: CollisionShape2D = %TopBoundary
 @onready var bottom_boundary: CollisionShape2D = %BottomBoundary
@@ -27,7 +28,9 @@ func _ready():
 	ball.boundary_limit.connect(on_ball_boundary_limit)
 	ball.spawn()
 
-
+	retro_effect.visible = GameSettings.RETRO_EFFECT_SHADER
+	
+		
 func _draw():
 	draw_dashed_line(Vector2(viewport.size.x / 2, 0), Vector2(viewport.size.x / 2 , viewport.size.y), Color.BEIGE, 3.0, 10.0)
 	
@@ -66,3 +69,5 @@ func on_ball_boundary_limit(side: int) -> void:
 	else:
 		player_two_score += 1
 		player_two_score_label.text =  str(player_two_score)
+
+

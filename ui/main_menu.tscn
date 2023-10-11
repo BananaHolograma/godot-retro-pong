@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3rskkb6smpo"]
+[gd_scene load_steps=9 format=3 uid="uid://c3rskkb6smpo"]
 
 [ext_resource type="Script" path="res://ui/main_menu.gd" id="1_ws0gl"]
 [ext_resource type="Shader" path="res://shaders/vhs.gdshader" id="2_bdwdm"]
+[ext_resource type="Texture2D" uid="uid://ckujhbyfrn8k7" path="res://ui/keyboard_icons/T_W_Key_White.png" id="3_2p2l2"]
 [ext_resource type="AudioStream" uid="uid://c6jnxw1xa35u8" path="res://sounds/background_music.mp3" id="3_2wu6h"]
+[ext_resource type="Texture2D" uid="uid://snyvxx8ttmep" path="res://ui/keyboard_icons/T_S_Key_White.png" id="4_o10cj"]
+[ext_resource type="Texture2D" uid="uid://dsvxl5q3v1r76" path="res://ui/keyboard_icons/T_Up_Key_White.png" id="5_sylhr"]
+[ext_resource type="Texture2D" uid="uid://gojst1a1fnej" path="res://ui/keyboard_icons/T_Down_Key_White.png" id="6_cprbf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t1u6n"]
 shader = ExtResource("2_bdwdm")
@@ -35,6 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_ws0gl")
 
 [node name="RetroEffect" type="ColorRect" parent="."]
@@ -46,6 +51,69 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="InputHelp" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="WKey" type="TextureRect" parent="InputHelp"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 401.0
+offset_right = 105.0
+offset_bottom = 433.0
+texture = ExtResource("3_2p2l2")
+expand_mode = 1
+
+[node name="SKey" type="TextureRect" parent="InputHelp"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 434.0
+offset_right = 105.0
+offset_bottom = 466.0
+texture = ExtResource("4_o10cj")
+expand_mode = 1
+
+[node name="UpKey" type="TextureRect" parent="InputHelp"]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 401.0
+offset_right = 570.0
+offset_bottom = 433.0
+texture = ExtResource("5_sylhr")
+expand_mode = 1
+
+[node name="DownKey" type="TextureRect" parent="InputHelp"]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 434.0
+offset_right = 570.0
+offset_bottom = 466.0
+texture = ExtResource("6_cprbf")
+expand_mode = 1
+
+[node name="PlayerOneControls" type="Label" parent="InputHelp"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 371.0
+offset_right = 181.0
+offset_bottom = 398.0
+theme_override_font_sizes/font_size = 14
+text = "Player 1"
+
+[node name="PlayerTwoControls" type="Label" parent="InputHelp"]
+layout_mode = 0
+offset_left = 505.0
+offset_top = 371.0
+offset_right = 649.0
+offset_bottom = 398.0
+theme_override_font_sizes/font_size = 14
+text = "Player 2"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -72,6 +140,13 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
 
+[node name="EnableRetroButton" type="CheckButton" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "RETRO EFFECT"
+alignment = 1
+
 [node name="OnePlayerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -93,10 +168,11 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../../OnePlayerButton")
 text = "Exit"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_2wu6h")
 autoplay = true
 
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/EnableRetroButton" to="." method="_on_enable_retro_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/OnePlayerButton" to="." method="_on_one_player_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/TwoPlayersButton" to="." method="_on_two_players_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/MarginContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi7i031lr2e7v"]
+[gd_scene load_steps=8 format=3 uid="uid://bi7i031lr2e7v"]
 
 [ext_resource type="Script" path="res://playing_field.gd" id="1_cl3ci"]
 [ext_resource type="Shader" path="res://shaders/vhs.gdshader" id="2_go70g"]
+[ext_resource type="Script" path="res://ui/pause_menu.gd" id="3_55c7q"]
 [ext_resource type="PackedScene" uid="uid://cqwbrqx1dkacu" path="res://ball/ball.tscn" id="3_iih04"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ixuef"]
@@ -44,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="RetroEffect" type="ColorRect" parent="Score/Overlay"]
 material = SubResource("ShaderMaterial_ixuef")
@@ -72,16 +74,48 @@ offset_bottom = 71.0
 theme_override_font_sizes/font_size = 45
 text = "0"
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("3_55c7q")
+
+[node name="Control" type="Control" parent="PauseMenu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="PauseMenu/Control/MarginContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to menu"
+
 [node name="TopBoundaryLimit" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="TopBoundary" type="CollisionShape2D" parent="TopBoundaryLimit"]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_yu47y")
 
 [node name="BottomBoundaryLimit" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="BottomBoundary" type="CollisionShape2D" parent="BottomBoundaryLimit"]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_3dvou")
 
 [node name="Ball" parent="." groups=["ball"] instance=ExtResource("3_iih04")]
+
+[connection signal="pressed" from="PauseMenu/Control/MarginContainer/CenterContainer/BackButton" to="PauseMenu" method="_on_back_button_pressed"]
