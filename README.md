@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="256px" src="https://github.com/godotessentials/godot-retro-pong/blob/main/retro_pong_cover.png" alt="retro-pong-cover" />  
+    <img width="256px" src="https://github.com/godotessentials/godot-retro-pong/blob/main/images/retro_pong_cover.png" alt="retro-pong-cover" />  
 	<h1 align="center">Retro Pong</h1>
 </p>
 
